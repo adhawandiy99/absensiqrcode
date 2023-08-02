@@ -18,8 +18,13 @@ class Gaji_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
+        $sql = "SELECT g.*,a.id_karyawan,a.nama_karyawan,b.nama_jabatan,c.nama_shift,d.nama_gedung,d.alamat
+        from gaji g 
+        left join karyawan a on g.karyawan_id=a.id
+        left join jabatan b on a.jabatan=b.id_jabatan 
+        left join shift c on a.id_shift = c.id_shift
+        left join gedung d on a.gedung_id=d.gedung_id";
+         return $this->db->query($sql)->result();
     }
 
     // get data by id

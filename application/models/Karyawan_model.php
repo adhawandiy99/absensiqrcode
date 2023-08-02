@@ -38,7 +38,24 @@ class Karyawan_model extends CI_Model
                 and a.id_shift=c.id_shift";
         return $this->db->query($sql)->result();
     }
-
+    function get_all_query_total()
+    {
+      $sql = "SELECT a.*,a.nama_karyawan as text,b.nama_jabatan,c.nama_shift,d.nama_gedung,d.alamat,c_presensi.ttl_hadir,c_presensi.ttl_absen 
+        from karyawan a 
+        left join jabatan b on a.jabatan=b.id_jabatan 
+        left join shift c on a.id_shift = c.id_shift
+        left join gedung d on a.gedung_id=d.gedung_id
+        left join (SELECT SUM(CASE 
+            WHEN id_khd = 1 
+            THEN 1 
+            ELSE 0 
+        END) AS ttl_hadir,SUM(CASE 
+            WHEN id_khd != 1 
+            THEN 1 
+            ELSE 0 
+        END) AS ttl_absen, id_karyawan FROM presensi where id_khd=1 GROUP BY id_karyawan ORDER BY id_karyawan) as c_presensi on a.id_karyawan = c_presensi.id_karyawan";
+         return $this->db->query($sql)->result();
+    }
 
     function get_by_id_query($id)
     {

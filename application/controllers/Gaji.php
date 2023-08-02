@@ -66,7 +66,7 @@ class Gaji extends CI_Controller
         }
         $user = $this->user;
         $row = $this->Gaji_model->get_by_id($id);
-        $karyawan = $this->Karyawan_model->get_all();
+        $karyawan = $this->Karyawan_model->get_all_query_total();
         // print_r($karyawan);
         // die();
         $data = array(
@@ -86,6 +86,15 @@ class Gaji extends CI_Controller
         } else {
             $data = array(
                 'gaji' => strtoupper($this->input->post('gaji', TRUE)),
+                'potongan_asuransi' => strtoupper($this->input->post('potongan_asuransi', TRUE)),
+                'potongan_mangkir' => strtoupper($this->input->post('potongan_mangkir', TRUE)),
+                'potongan_pph' => strtoupper($this->input->post('potongan_pph', TRUE)),
+                'tunjangan_jabatan' => strtoupper($this->input->post('tunjangan_jabatan', TRUE)),
+                'tunjangan_konsumsi' => strtoupper($this->input->post('tunjangan_konsumsi', TRUE)),
+                'tunjangan_harian' => strtoupper($this->input->post('tunjangan_harian', TRUE)),
+                'bonus_target' => strtoupper($this->input->post('bonus_target', TRUE)),
+                'total_gaji' => strtoupper($this->input->post('total_gaji', TRUE)),
+                'karyawan_id' => strtoupper($this->input->post('karyawan_id', TRUE)),
             );
             if($this->Gaji_model->get_by_id($id)){
                 //todo update

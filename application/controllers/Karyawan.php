@@ -101,6 +101,7 @@ class Karyawan extends CI_Controller
         } else {
             $hasil = 1;
         }
+        $row = $this->Karyawan_model->get_by_id('new');
         $user = $this->user;
         $data = array(
             'box' => 'info',
@@ -112,6 +113,7 @@ class Karyawan extends CI_Controller
             'id_shift' => set_value('id_shift'),
             'gedung_id' => set_value('gedung_id'),
             'id' => set_value('id'),
+            'karyawan' => $row,
             'user' => $user, 'users'     => $this->ion_auth->user()->row(),
             'result' => $hasil,
         );
@@ -137,6 +139,13 @@ class Karyawan extends CI_Controller
                 'jabatan' => $this->input->post('jabatan', TRUE),
                 'id_shift' => $this->input->post('id_shift', TRUE),
                 'gedung_id' => $this->input->post('gedung_id', TRUE),
+                'gaji_pokok' => $this->input->post('gaji_pokok', TRUE),
+                'tunjangan_jabatan' => $this->input->post('tunjangan_jabatan', TRUE),
+                'tunjangan_konsumsi' => $this->input->post('tunjangan_konsumsi', TRUE),
+                'tunjangan_harian' => $this->input->post('tunjangan_harian', TRUE),
+                'bonus_target' => $this->input->post('bonus_target', TRUE),
+                'persentase_pph21' => $this->input->post('persentase_pph21', TRUE),
+                'potongan_asuransi' => $this->input->post('potongan_asuransi', TRUE),
             );
             $this->Karyawan_model->insert($data);
             $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan karyawan'));
@@ -175,6 +184,7 @@ class Karyawan extends CI_Controller
                 'id_shift' => set_value('shift', $row->id_shift),
                 'gedung_id' => set_value('gedung_id', $row->gedung_id),
                 'user' => $user,
+                'karyawan' => $row,
                 'users'     => $this->ion_auth->user()->row(),
                 'id' => set_value('id', $row->id),
             );
@@ -207,6 +217,13 @@ class Karyawan extends CI_Controller
                 'jabatan' => $this->input->post('jabatan', TRUE),
                 'id_shift' => $this->input->post('id_shift', TRUE),
                 'gedung_id' => $this->input->post('gedung_id', TRUE),
+                'gaji_pokok' => $this->input->post('gaji_pokok', TRUE),
+                'tunjangan_jabatan' => $this->input->post('tunjangan_jabatan', TRUE),
+                'tunjangan_konsumsi' => $this->input->post('tunjangan_konsumsi', TRUE),
+                'tunjangan_harian' => $this->input->post('tunjangan_harian', TRUE),
+                'bonus_target' => $this->input->post('bonus_target', TRUE),
+                'persentase_pph21' => $this->input->post('persentase_pph21', TRUE),
+                'potongan_asuransi' => $this->input->post('potongan_asuransi', TRUE),
             );
 
             $this->Karyawan_model->update($this->input->post('id', TRUE), $data);

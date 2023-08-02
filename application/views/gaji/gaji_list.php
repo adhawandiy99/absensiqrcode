@@ -26,7 +26,9 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>gaji</th>
+                                <th>NIK</th>
+                                <th>Nama</th>
+                                <th>Total Gaji</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,7 +38,9 @@
                             foreach ($gaji_data as $gaji) { ?>
                             <tr>
                                 <td><?php echo ++$start ?></td>
-                                <td><?php echo $gaji->gaji ?></td>
+                                <td><?php echo $gaji->id_karyawan ?></td>
+                                <td><?php echo $gaji->nama_karyawan ?></td>
+                                <td><?php echo number_format($gaji->total_gaji) ?></td>
                                 <td>
                                     <?php
                                         echo anchor(site_url('gaji/form/' . $gaji->id), '<i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;Edit', array('title' => 'edit', 'class' => 'btn btn-md btn-warning btn-edit-data btn3d'));
