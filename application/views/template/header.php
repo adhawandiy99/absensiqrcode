@@ -2,9 +2,10 @@
     <!-- Logo -->
     <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>K</span>
+        <!-- <span class="logo-mini"><b>A</b>K</span> -->
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Absesi Karyawan</b></span>
+        <!-- <span class="logo-lg"></span> -->
+        <b>PT. LLB</b>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -27,16 +28,24 @@
                         <span id="clock">&nbsp;</span>
                     </a>
                 </li>
+                <?php 
+                    if(file_exists(FCPATH."uploads/profile/$users->id.jpg")){
+                        $avatar = base_url('uploads/profile/'.$users->id.'.jpg?'.time());
+                    }else{
+                        $avatar = base_url('assets/dist/img/avatar01.png');
+                    }
+                ?>
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo base_url() ?>assets/dist/img/avatar01.png" class="user-image" alt="User Image">
+                        <img src="<?php echo $avatar ?>" class="user-image" alt="User Image">
                         <span class="hidden-xs">Welcome, <?= $user->first_name ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?php echo base_url() ?>assets/dist/img/avatar01.png" class="img-circle" alt="User Image">
+                            
+                            <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
                             <p>
                                 <?= $user->first_name . ' ' . $user->last_name ?>
                                 <small>Member since <?= date('M, Y', $user->created_on) ?></small>

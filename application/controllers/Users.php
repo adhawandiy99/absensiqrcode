@@ -128,6 +128,32 @@ class Users extends CI_Controller
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
+	public function profile_pict()
+	{
+		if(!empty($_FILES['foto_profile']['name'])){ 
+			// Set preference 
+			$config['upload_path'] = './uploads/profile/'; 
+			$config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+			$config['max_size'] = '2000'; // max_size in kb 
+			$config['file_name'] = $this->user->id.".jpg"; 
+			$config['overwrite'] = true; 
+
+			// Load upload library 
+			$this->load->library('upload',$config); 
+
+			// File upload
+			if($this->upload->do_upload('foto_profile')){ 
+				$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil'));
+			}else{ 
+				$this->session->set_flashdata('messageAlert', $this->messageAlert('danger', $this->upload->display_errors()));
+			} 
+		}else{ 
+			$this->session->set_flashdata('messageAlert', $this->messageAlert('danger', 'Failed'));
+		} 
+		// load view 
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
 	public function change_pwprof()
 	{
 		$this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');

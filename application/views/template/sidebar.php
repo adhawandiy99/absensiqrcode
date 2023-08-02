@@ -1,13 +1,20 @@
+<?php 
+    if(file_exists(FCPATH."uploads/profile/$users->id.jpg")){
+        $avatar = base_url('uploads/profile/'.$users->id.'.jpg?'.time());
+    }else{
+        $avatar = base_url('assets/dist/img/avatar01.png');
+    }
+?>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?php echo base_url() ?>assets/dist/img/avatar01.png" class="img-circle" alt="User Image">
+                <img src="<?php echo $avatar ?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Absensi Karyawan</p>
+                <p>Lvine Latersia Baratama</p>
             </div>
         </div>
         <!-- search form -->
