@@ -132,4 +132,23 @@ class Gaji extends CI_Controller
         $this->form_validation->set_rules('gaji', 'gaji', 'required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
+
+    public function slip($id)
+    {
+        if (!$this->ion_auth->is_admin()) {
+            show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        }
+        $user = $this->user;
+        $row = $this->Gaji_model->get_by_id($id);
+        $karyawan = $this->Karyawan_model->get_all_query_total();
+        // print_r($karyawan);
+        // die();
+        $data = array(
+            'karyawan' => $karyawan,
+            'row' => $row,
+            'user' => $user,
+            'users'     => $this->ion_auth->user()->row(),
+        );
+        $this->template->load('template/template', 'gaji/gaji_slip', $data);
+    }
 }
