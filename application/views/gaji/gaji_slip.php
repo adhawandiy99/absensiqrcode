@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xs-12">
         <h2 class="page-header">
-            <i class="fa fa-globe"></i> Nama Perusahaan
+            <i class="fa fa-globe"></i> PT. Lvine Latersia Baratama
             <small class="pull-right">Alamat Perusahaan</small>
         </h2>
     </div>
@@ -23,16 +23,16 @@
     </div>
     <div>&nbsp;</div>
     <div class="row">
-        <div class="col-md-3">NIK</div><div class="col-md-1 text-right">:</div><div class="col-md-8">(123)</div>
+        <div class="col-md-3">NIK</div><div class="col-md-1 text-right">:</div><div>(123)</div>
     </div>
     <div class="row">
-        <div class="col-md-3">NAMA</div><div class="col-md-1 text-right">:</div><div class="col-md-8">(NAMA)</div>
+        <div class="col-md-3">NAMA</div><div class="col-md-1 text-right">:</div><div>(NAMA)</div>
     </div>
     <div class="row">
-        <div class="col-md-3">JABATAN</div><div class="col-md-1 text-right">:</div><div class="col-md-8">(JABATAN)</div>
+        <div class="col-md-3">JABATAN</div><div class="col-md-1 text-right">:</div><div>(JABATAN)</div>
     </div>
     <div class="row">
-        <div class="col-md-3">STATUS</div><div class="col-md-1 text-right">:</div><div class="col-md-8">(STATUS)</div>
+        <div class="col-md-3">STATUS</div><div class="col-md-1 text-right">:</div><div>(STATUS)</div>
     </div>
 
     <div>&nbsp;</div>
@@ -79,6 +79,7 @@
             </div>
         </div>
     </div>
+    <div>&nbsp;</div>
     <div class="row">
         <div class="col-md-6">
             <div class="text-bold text-center">PENERIMAAN BERSIH (A-B)</div>
