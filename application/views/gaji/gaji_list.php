@@ -28,6 +28,7 @@
                                 <th>No</th>
                                 <th>NIK</th>
                                 <th>Nama</th>
+                                <th>Periode</th>
                                 <th>Total Gaji</th>
                                 <th>Action</th>
                             </tr>
@@ -40,9 +41,11 @@
                                 <td><?php echo ++$start ?></td>
                                 <td><?php echo $gaji->id_karyawan ?></td>
                                 <td><?php echo $gaji->nama_karyawan ?></td>
+                                <td><?php echo $gaji->periode ?></td>
                                 <td><?php echo number_format($gaji->total_gaji) ?></td>
                                 <td>
                                     <?php
+                                        echo anchor(site_url('gaji/slip/' . $gaji->id), '<i class="fa  fa-eye"></i>&nbsp;&nbsp;Slip', array('title' => 'slip', 'class' => 'btn btn-md btn-success btn-edit-data btn3d'));
                                         echo anchor(site_url('gaji/form/' . $gaji->id), '<i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;Edit', array('title' => 'edit', 'class' => 'btn btn-md btn-warning btn-edit-data btn3d'));
                                         echo anchor(site_url('gaji/delete/' . $gaji->id), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-md btn-danger btn-remove-data btn3d"');
                                         ?>

@@ -35,11 +35,6 @@
                                     <div class="col-md-7"> <?php echo form_input($phone, null, 'class="form-control"');?></div>
                               </div>
 
-                              <div class="form-group">
-                                <label for="inputName" class="col-md-3 control-label">Perusahaan</label>
-                                    <div class="col-md-7"> <?php echo form_input($company, null, 'class="form-control"');?></div>
-                              </div>
-
                         </fieldset>
                   </div>
                 </div>

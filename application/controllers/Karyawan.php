@@ -146,6 +146,7 @@ class Karyawan extends CI_Controller
                 'bonus_target' => $this->input->post('bonus_target', TRUE),
                 'persentase_pph21' => $this->input->post('persentase_pph21', TRUE),
                 'potongan_asuransi' => $this->input->post('potongan_asuransi', TRUE),
+                'status_karyawan' => $this->input->post('status_karyawan', TRUE),
             );
             $this->Karyawan_model->insert($data);
             $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan karyawan'));
@@ -224,6 +225,7 @@ class Karyawan extends CI_Controller
                 'bonus_target' => $this->input->post('bonus_target', TRUE),
                 'persentase_pph21' => $this->input->post('persentase_pph21', TRUE),
                 'potongan_asuransi' => $this->input->post('potongan_asuransi', TRUE),
+                'status_karyawan' => $this->input->post('status_karyawan', TRUE),
             );
 
             $this->Karyawan_model->update($this->input->post('id', TRUE), $data);

@@ -65,7 +65,7 @@ class Gaji extends CI_Controller
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
         }
         $user = $this->user;
-        $row = $this->Gaji_model->get_by_id($id);
+        $row = @$this->Gaji_model->get_by_id_q($id)[0];
         $karyawan = $this->Karyawan_model->get_all_query_total();
         // print_r($karyawan);
         // die();
@@ -95,6 +95,10 @@ class Gaji extends CI_Controller
                 'bonus_target' => strtoupper($this->input->post('bonus_target', TRUE)),
                 'total_gaji' => strtoupper($this->input->post('total_gaji', TRUE)),
                 'karyawan_id' => strtoupper($this->input->post('karyawan_id', TRUE)),
+                'periode' => strtoupper($this->input->post('periode', TRUE)),
+                'total_kehadiran' => strtoupper($this->input->post('total_kehadiran', TRUE)),
+                'total_alpha' => strtoupper($this->input->post('total_alpha', TRUE)),
+                'potongan_pph_persen' => strtoupper($this->input->post('potongan_pph_persen', TRUE)),
             );
             if($this->Gaji_model->get_by_id($id)){
                 //todo update
@@ -139,12 +143,9 @@ class Gaji extends CI_Controller
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
         }
         $user = $this->user;
-        $row = $this->Gaji_model->get_by_id($id);
-        $karyawan = $this->Karyawan_model->get_all_query_total();
-        // print_r($karyawan);
-        // die();
+        $row = $this->Gaji_model->get_by_id_q($id)[0];
+        // $karyawan = $this->Karyawan_model->get_all_query_total();
         $data = array(
-            'karyawan' => $karyawan,
             'row' => $row,
             'user' => $user,
             'users'     => $this->ion_auth->user()->row(),

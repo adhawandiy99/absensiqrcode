@@ -20,17 +20,6 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="jabatan" class="control-label">Jabatan<?php echo form_error('jabatan') ?></label>
-                                <div class="input-group">
-                                    <?php echo cmb_dinamis('jabatan', 'jabatan', 'jabatan', 'nama_jabatan', 'id_jabatan', $jabatan) ?>
-                                    <span class="input-group-addon">
-                                        <span class="fas fa-briefcase"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
                                 <label for="gedung_id" class="control-label">Penempatan<?php echo form_error('gedung') ?></label>
                                 <div class="input-group">
                                     <?php echo cmb_dinamis('gedung_id', 'gedung_id', 'gedung', 'alamat', 'gedung_id', $gedung_id) ?>
@@ -39,10 +28,34 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="jabatan" class="control-label">Jabatan<?php echo form_error('jabatan') ?></label>
+                                <div class="input-group">
+                                    <?php echo cmb_dinamis('jabatan', 'jabatan', 'jabatan', 'nama_jabatan', 'id_jabatan', $jabatan) ?>
+                                    <span class="input-group-addon">
+                                        <span class="fas fa-briefcase"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-4">
                                 <label for="id_shift" class="control-label">Shift<?php echo form_error('shfit') ?></label>
                                 <div class="input-group">
                                     <?php echo cmb_dinamis('id_shift', 'id_shift', 'shift', 'nama_shift', 'id_shift', $id_shift) ?>
+                                    <span class="input-group-addon">
+                                        <span class="fas fa-retweet"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="status_karyawan" class="control-label">Status<?php echo form_error('status_karyawan') ?></label>
+                                <div class="input-group">
+                                    <select name="status_karyawan" id="status_karyawan" class="form-control" required>
+                                        <option value="Aktif">Aktif</option>
+                                        <option value="Non-Aktif">Non-Aktif</option>
+                                    </select>
                                     <span class="input-group-addon">
                                         <span class="fas fa-retweet"></span>
                                     </span>
@@ -136,3 +149,9 @@
         </div><!-- /.col -->
     </div><!-- /.row -->
 </section><!-- /.content -->
+<script type="text/javascript">
+    var data = <?= json_encode($karyawan) ?>;
+    $('#jabatan').val(data.jabatan).change();
+    $('#id_shift').val(data.id_shift).change();
+    $('#status_karyawan').val(data.status_karyawan).change();
+</script>

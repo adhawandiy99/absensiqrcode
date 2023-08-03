@@ -249,7 +249,6 @@ class Users extends CI_Controller
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
 			);
 		}
@@ -266,7 +265,6 @@ class Users extends CI_Controller
 			'active' => set_value('active'),
 			'first_name' => set_value('first_name'),
 			'last_name' => set_value('last_name'),
-			'company' => set_value('company'),
 			'phone' => set_value('phone'),
 			'user' => $user,
 			'users' 	=> $this->ion_auth->user()->row(),
@@ -301,7 +299,6 @@ class Users extends CI_Controller
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
 			);
 		}
@@ -385,7 +382,6 @@ class Users extends CI_Controller
 				'active' => $this->input->post('active', TRUE),
 				'first_name' => $this->input->post('first_name', TRUE),
 				'last_name' => $this->input->post('last_name', TRUE),
-				'company' => $this->input->post('company', TRUE),
 				'phone' => $this->input->post('phone', TRUE),
 			);
 

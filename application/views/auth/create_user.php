@@ -58,15 +58,6 @@
                                         </div>
                                         <div class="col-xs-4 col-md-3 col-md-push-3 help-block with-errors">Nomor HP harus 12 digit</div>
                                     </div>
-                                    <div class="form-group has-feedback">
-                                        <label for="company" class="col-md-3 control-label">Perusahaan</label>
-                                        <div class="col-md-7 input-group">
-                                            <?php echo form_input($company, null, 'class="form-control"readonly'); ?>
-                                            <span class="input-group-addon">
-                                                <span class="fas fa-building"> </span>
-                                            </span>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div id="step-2" class="step-2">

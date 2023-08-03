@@ -34,16 +34,16 @@ class Gaji_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
- //    function get_by_id_q($id)
- //    {
- //      $sql = "SELECT a.id_karyawan,a.nama_karyawan,b.nama_jabatan,c.nama_shift,d.nama_gedung,d.alamat
- //              from karyawan as a,jabatan as b, shift as c,gedung as d
- //              where b.id_jabatan=a.jabatan
- //              AND c.id_shift=a.id_shift
- //              AND a.gedung_id=d.gedung_id
- //              AND b.id_jabatan=$id ";
- //        return $this->db->query($sql)->result();
- //    }
+    function get_by_id_q($id)
+    {
+      $sql = "SELECT g.*,a.id_karyawan,a.nama_karyawan,a.status_karyawan,b.nama_jabatan,c.nama_shift,d.nama_gedung,d.alamat
+        from gaji g 
+        left join karyawan a on g.karyawan_id=a.id
+        left join jabatan b on a.jabatan=b.id_jabatan 
+        left join shift c on a.id_shift = c.id_shift
+        left join gedung d on a.gedung_id=d.gedung_id where g.id='".$id."'";
+         return $this->db->query($sql)->result();
+    }
 
  //    // get total rows
  //    function total_rows($q = NULL) {
