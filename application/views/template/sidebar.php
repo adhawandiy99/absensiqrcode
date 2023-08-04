@@ -1,6 +1,6 @@
 <?php 
-    if(file_exists(FCPATH."uploads/profile/$users->id.jpg")){
-        $avatar = base_url('uploads/profile/'.$users->id.'.jpg?'.time());
+    if(file_exists(FCPATH."uploads/profile/$user->id.jpg")){
+        $avatar = base_url('uploads/profile/'.$user->id.'.jpg?'.time());
     }else{
         $avatar = base_url('assets/dist/img/avatar01.png');
     }

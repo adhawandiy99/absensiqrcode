@@ -11,8 +11,11 @@ class Rekap extends CI_Controller
         parent::__construct();
         if (!$this->ion_auth->logged_in()) {
             redirect('auth');
-        } else if (!$this->ion_auth->is_admin()) {
-            show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        }
+        $this->user = $this->ion_auth->user()->row();
+        $this->profile = $this->Users_model->getProfile($this->user->id);
+        if ($this->profile->name!='admin' && $this->profile->name!='supervisor') {
+            show_error('Hanya Administrator & supervisor yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
         }
         $models = array(
             'Rekap_model' => 'rekap',
@@ -21,7 +24,7 @@ class Rekap extends CI_Controller
         );
         $this->load->model($models);
         $this->load->library('form_validation');
-        $this->user = $this->ion_auth->user()->row();
+        
         $this->route = "rekap";
     }
 

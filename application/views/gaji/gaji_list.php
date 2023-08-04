@@ -18,7 +18,7 @@
                 <div class='box-header  with-border'>
                     <h3 class='box-title'>DATA Gaji</h3>
                     <div class="pull-right">
-                        <?php echo anchor(site_url('gaji/form/new'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', 'class="btn btn-unique btn-lg btn-create-data btn3d"'); ?>
+                        <?php if($profile->name=='admin' || $profile->name=='finance'){ echo anchor(site_url('gaji/form/new'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', 'class="btn btn-unique btn-lg btn-create-data btn3d"');} ?>
                     </div>
                 </div>
                 <div class="box-body">
@@ -46,9 +46,11 @@
                                 <td>
                                     <?php
                                         echo anchor(site_url('gaji/slip/' . $gaji->id), '<i class="fa  fa-eye"></i>&nbsp;&nbsp;Slip', array('title' => 'slip', 'class' => 'btn btn-md btn-success btn-edit-data btn3d'));
-                                        echo anchor(site_url('gaji/form/' . $gaji->id), '<i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;Edit', array('title' => 'edit', 'class' => 'btn btn-md btn-warning btn-edit-data btn3d'));
-                                        echo anchor(site_url('gaji/delete/' . $gaji->id), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-md btn-danger btn-remove-data btn3d"');
-                                        ?>
+                                        if($profile->name=='admin' || $profile->name=='finance'){
+                                            echo anchor(site_url('gaji/form/' . $gaji->id), '<i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;Edit', array('title' => 'edit', 'class' => 'btn btn-md btn-warning btn-edit-data btn3d'));
+                                            echo anchor(site_url('gaji/delete/' . $gaji->id), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-md btn-danger btn-remove-data btn3d"');
+                                        }
+                                    ?>
                                 </td>
                             </tr> <?php } ?>
                         </tbody>

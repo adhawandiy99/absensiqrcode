@@ -13,9 +13,11 @@ class Gaji extends CI_Controller
             redirect('auth');
         }
         $this->load->model('Gaji_model');
+        $this->load->model('Users_model');
         $this->load->model('Karyawan_model');
         $this->load->library('form_validation');
         $this->user = $this->ion_auth->user()->row();
+        $this->profile = $this->Users_model->getProfile($this->user->id);
     }
 
     public function messageAlert($type, $title)
@@ -38,21 +40,13 @@ class Gaji extends CI_Controller
 
     public function index()
     {
-        $chek = $this->ion_auth->is_admin();
-
-        if (!$chek) {
-            $hasil = 0;
-        } else {
-            $hasil = 1;
+        if ($this->profile->name!='admin' && $this->profile->name!='finance') {
+            show_error('Hanya Administrator & finance yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
         }
-        $user = $this->user;
-        $gaji = $this->Gaji_model->get_all();
-
         $data = array(
-            'gaji_data' => $gaji,
-            'user' => $user,
-            'users'     => $this->ion_auth->user()->row(),
-            'result' => $hasil,
+            'gaji_data' => $this->Gaji_model->get_all(),
+            'user' => $this->user,
+            'profile'   => $this->profile,
 
         );
         $this->template->load('template/template', 'gaji/gaji_list', $data);
@@ -61,24 +55,24 @@ class Gaji extends CI_Controller
 
     public function form($id)
     {
-        if (!$this->ion_auth->is_admin()) {
-            show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        if ($this->profile->name!='admin' && $this->profile->name!='finance') {
+            show_error('Hanya Administrator & finance yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
         }
         $user = $this->user;
         $row = @$this->Gaji_model->get_by_id_q($id)[0];
         $karyawan = $this->Karyawan_model->get_all_query_total();
-        // print_r($karyawan);
-        // die();
         $data = array(
             'karyawan' => $karyawan,
             'row' => $row,
             'user' => $user,
-            'users'     => $this->ion_auth->user()->row(),
         );
         $this->template->load('template/template', 'gaji/gaji_form', $data);
     }
     public function save($id)
     {
+        if ($this->profile->name!='admin' && $this->profile->name!='finance') {
+            show_error('Hanya Administrator & finance yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -108,6 +102,8 @@ class Gaji extends CI_Controller
                 //todo insert
                 $this->Gaji_model->insert($data);
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambah data gaji'));
+                $this->kirimEmail('riswandi.adha@gmail.com', 'Notifikasi Pengiriman Gaji', 'gaji nya adalah 99999999');
+
             }
             redirect(site_url('gaji'));
         }
@@ -116,8 +112,8 @@ class Gaji extends CI_Controller
     
     public function delete($id)
     {
-        if (!$this->ion_auth->is_admin()) {
-            show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        if ($this->profile->name!='admin' && $this->profile->name!='finance') {
+            show_error('Hanya Administrator & finance yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
         }
         $row = $this->Gaji_model->get_by_id($id);
 
@@ -139,17 +135,54 @@ class Gaji extends CI_Controller
 
     public function slip($id)
     {
-        if (!$this->ion_auth->is_admin()) {
-            show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
-        }
         $user = $this->user;
         $row = $this->Gaji_model->get_by_id_q($id)[0];
         // $karyawan = $this->Karyawan_model->get_all_query_total();
         $data = array(
             'row' => $row,
-            'user' => $user,
-            'users'     => $this->ion_auth->user()->row(),
+            'user' => $user
         );
+
         $this->template->load('template/template', 'gaji/gaji_slip', $data);
+    }
+    public function printer()
+    {
+        // die();
+        $id = $this->input->post('gaji_id', TRUE);
+        $user = $this->user;
+        $row = $this->Gaji_model->get_by_id_q($id)[0];
+        $data = array(
+            'row' => $row,
+            'user' => $user
+        );
+        $this->load->library('pdf');
+        $html = $this->load->view('gaji/_pdf', $data, true);
+        $this->pdf->createPDF($html, 'mypdf', false);
+    }
+    public function slip_perorang()
+    {
+        $gaji = $this->Gaji_model->get_by_karyawan_id(129);
+        $data = array(
+            'gaji_data' => $gaji,
+            'user'      => $this->user,
+            'profile'   => $this->profile,
+        );
+        $this->template->load('template/template', 'gaji/gaji_list', $data);
+        $this->load->view('template/datatables');
+    }
+    public function kirimEmail($to_email,$subject,$html_content)
+    {
+        $url = 'https://api.brevo.com/v3/smtp/email';
+        $ch = curl_init($url);
+        $datanya = ["sender"=>["name"=>"Riswandi Adha", "email"=>"riswandiadha.e03100141@gmail.com"], "to"=>[["email"=>$to_email,"name"=>$to_email]],"subject"=>$subject,"htmlContent"=>$html_content];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datanya));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'accept: application/json',
+            'api-key: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',
+            'content-type: application/json',
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
     }
 }

@@ -29,8 +29,8 @@
                     </a>
                 </li>
                 <?php 
-                    if(file_exists(FCPATH."uploads/profile/$users->id.jpg")){
-                        $avatar = base_url('uploads/profile/'.$users->id.'.jpg?'.time());
+                    if(file_exists(FCPATH."uploads/profile/$user->id.jpg")){
+                        $avatar = base_url('uploads/profile/'.$user->id.'.jpg?'.time());
                     }else{
                         $avatar = base_url('assets/dist/img/avatar01.png');
                     }
@@ -53,7 +53,7 @@
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="<?php echo base_url(('users/profile/') . $users->id); ?>" class="btn btn-default btn-lg">Profile</a>
+                                <a href="<?php echo base_url(('users/profile/') . $user->id); ?>" class="btn btn-default btn-lg">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <?php
